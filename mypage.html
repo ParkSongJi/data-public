@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공공데이터</title>
+</head>
+<body>
+    <h2>공공데이터</h2>
+
+
+
+
+
+
+
+
+
+    <script>
+        fetch('https://apis.data.go.kr/B551893/ndod-weather/list?serviceKey=iA5uPjdnjhkgP%2BMmNrM6EjYq6ddzwyuqt2MEB2Ki2bZy6K9z0PylFq5O5dZLYeJLSqgtFyoKgkQdjrTQ4XuCtw%3D%3D&startD=20220101&endD=20230101')
+        .then(data => {
+        const orgNo = data.response.body.content[0].orgNo;
+        document.write(`<p>${orgNo}</p>`);
+    })
+  
+    </script>
+</body>
+</html>
