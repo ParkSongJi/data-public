@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공공데이터</title>
+    <link rel="style.sheet" href="./css/style.css">
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7f9eaaef68167eeb159f1488b7332ede"></script>
+</head>
+<body>
+    <h2>공공데이터</h2>
+    
+    <div id="container"></div>
+
+    <ul>
+        <li>온도</li>
+        <li>습도</li>
+        <li>강수량</li>
+    </ul>
+
+    <!-- 지도를 표시할 div 입니다 -->
+    <div id="map" style="width:500px;height:400px;"></div>
+
+
+
+    <script>
+        fetch('https://apis.data.go.kr/B551893/ndod-weather/list?serviceKey=iA5uPjdnjhkgP%2BMmNrM6EjYq6ddzwyuqt2MEB2Ki2bZy6K9z0PylFq5O5dZLYeJLSqgtFyoKgkQdjrTQ4XuCtw%3D%3D&page=1&size=100&startD=20220101&endD=20230101')
+        .then(response => response.json()) // 응답을 JSON 형식으로 파싱
+        .then((data) => {  
+
+
+            const content = data.reponse.body.content;
+            let div;
+            const container = document.getElementById('container');
+            for(const i in content) {
+                div = document.createElement('div');
+                div.innerHTML = 
+                `<table style='border:1px solid black; border-collapse: collapse; margin: 0 auto;width:1400px;text-align:center '>
+                <td style='border:1px solid black;'>${data.reponse.body.content[i]['orgNo']}</td>
+                <td style='border:1px solid black;'>${data.reponse.body.content[i]['ym']}</td>
+                <td style='border:1px solid black;'>${data.reponse.body.content[i]['hoki']}</td>
+                <td style='border:1px solid black;'>${data.reponse.body.content[i]['orgNm']}</td>
+                <td style='border:1px solid black;'>${data.reponse.body.content[i]['hokiNm']}</td>
+                <td style='border:1px solid black;'>${data.reponse.body.content[i]['item01']}</td>
+                <td style='border:1px solid black;'>${data.reponse.body.content[i]['item02']}</td>
+                <td style='border:1px solid black;'>${data.reponse.body.content[i]['item03']}</td>
+                <td style='border:1px solid black;'>${data.reponse.body.content[i]['item04']}</td>
+                <td style='border:1px solid black;'>${data.reponse.body.content[i]['item05']}</td>
+                <td style='border:1px solid black;'>${data.reponse.body.content[i]['item06']}</td>
+                <td style='border:1px solid black;'>${data.reponse.body.content[i]['item07']}</td>
+                <td style='border:1px solid black;'>${data.reponse.body.content[i]['item08']}</td>
+                <td style='border:1px solid black;'>${data.reponse.body.content[i]['item09']}</td>
+                <td style='border:1px solid black;'>${data.reponse.body.content[i]['item10']}</td>
+                <td style='border:1px solid black;'>${data.reponse.body.content[i]['item11']}</td>
+                <td style='border:1px solid black;'>${data.reponse.body.content[i]['item12']}</td>
+                </table>`
+
+                container.appendChild(div);
+            }
+            })
+            .catch(error => {
+            console.log("데이터를 가져오는 중 오류가 발생했습니다:", error);
+            });
+
+
+
+            var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+            mapOption = { 
+                center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                level: 3 // 지도의 확대 레벨
+            };
+            // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+            var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+
+
+    </script>
+</body>
+</html>
